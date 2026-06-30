@@ -12,6 +12,7 @@ Running the setup script copies the rule files in this repo into your personal C
 | `company-llm-and-prompts.md` | Rules for LLM pipeline nodes and editing agent system prompts. | Every session, every project. |
 | `company-react-frontend.md` | React / frontend architecture rules (folder structure, store, services, config, Docker, nginx). | Only when you edit `.tsx` or `.css.ts` files. |
 | `setup-claude-standards.mjs` | Installer that copies the three rule files into `~/.claude/rules/`. | — |
+| `uninstall-claude-standards.mjs` | Uninstaller that removes the rule files this repo installed. | — |
 
 ## Requirements
 
@@ -48,6 +49,16 @@ These are plain markdown files, so updating is easy:
 2. Have everyone re-run `node setup-claude-standards.mjs`.
 
 Re-running is safe and overwrites only the files it installs.
+
+## Uninstall
+
+To remove the standards from a machine, run the uninstaller from the repo:
+
+```bash
+node uninstall-claude-standards.mjs
+```
+
+It deletes from `~/.claude/rules/` only the `company-*.md` files this repo installed, then restart Claude Code so it stops loading them. Your own `CLAUDE.md` and any other rules are left untouched, and the `rules/` directory is removed only if it's empty afterwards.
 
 ## Good to know
 

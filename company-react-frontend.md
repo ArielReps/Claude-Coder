@@ -1,12 +1,16 @@
 ---
 paths:
   - "**/*.tsx"
+  - "**/*.jsx"
   - "**/*.css.ts"
+  - "**/*.css.js"
 ---
 
 # React / Frontend Requirements
 
 These rules apply to every React frontend. They build on the rules above (functional-first, no hardcoded text, arrow functions only, files < 100 lines, functions < 30 lines). The reference implementation that embodies all of this is `C:\dev\Kolsherut-Application\FE` — when in doubt, mirror it.
+
+These rules apply to both TypeScript and JavaScript projects. Use the matching extension throughout: `.tsx`/`.ts`/`.css.ts` in a TypeScript project, `.jsx`/`.js`/`.css.js` in a JavaScript one. Wherever a rule below names a `.tsx` or `.css.ts` file, the `.jsx` / `.css.js` equivalent is meant in a JS project.
 
 ## 1. Component Folder Structure
 
@@ -114,3 +118,11 @@ Every static text shown to the user **MUST** live in `strings.json` and be read 
 ## 9. nginx Configuration
 
 There **MUST** be at least one nginx config file (a basic one to start), with SPA fallback `try_files $uri $uri/ /index.html`. Add more per-environment configs as needed.
+
+## 10. Types
+
+- **All types and interfaces MUST live under `/src/types`.** This is strict and has **no exceptions**.
+- **NEVER** declare a `type` or `interface` anywhere else — not inline, not in component files (`.tsx`), not in logic files, not in services, not in slices/selectors. If you find yourself writing `type` or `interface` outside `/src/types`, stop and move it.
+- When you need a new type or interface, create or extend the appropriate file under `/src/types` and **import** it from there.
+- Component files, logic files, services, and the store import their types from `/src/types`; they never define them.
+- (TypeScript only — JavaScript projects have no types/interfaces to place.)
