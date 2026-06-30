@@ -13,6 +13,7 @@ Running the setup script copies the rule files in this repo into your personal C
 | `company-react-frontend.md` | React / frontend architecture rules (folder structure, store, services, config, Docker, nginx). | Only when you edit `.tsx` or `.css.ts` files. |
 | `setup-claude-standards.mjs` | Installer that copies the three rule files into `~/.claude/rules/`. | — |
 | `uninstall-claude-standards.mjs` | Uninstaller that removes the rule files this repo installed. | — |
+| `update-claude-standards.mjs` | Updater: uninstall, then `git pull`, then install. | — |
 
 ## Requirements
 
@@ -43,12 +44,17 @@ You should see `company-code-style.md` and `company-llm-and-prompts.md` listed. 
 
 ## Updating the standards
 
-These are plain markdown files, so updating is easy:
+**Maintainers** — edit the relevant `company-*.md` file and push to the repo.
 
-1. Edit the relevant `company-*.md` file and push.
-2. Have everyone re-run `node setup-claude-standards.mjs`.
+**Everyone else** — pull the latest and reinstall in one step, from inside your cloned repo:
 
-Re-running is safe and overwrites only the files it installs.
+```bash
+node update-claude-standards.mjs
+```
+
+This runs uninstall, then `git pull`, then install, so renamed or removed rule files are cleaned up correctly. If the `git pull` fails (no network, a merge conflict, etc.), it reinstalls your current rules so you're never left without any. Restart Claude Code afterwards to load the changes.
+
+If you'd rather do it by hand, run `git pull` and then `node setup-claude-standards.mjs`.
 
 ## Uninstall
 
